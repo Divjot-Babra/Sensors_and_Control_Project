@@ -1,0 +1,8 @@
+prefix=/home/divjot/catkin_ws/install
+
+Name: fetch_gazebo
+Description: Description of fetch_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

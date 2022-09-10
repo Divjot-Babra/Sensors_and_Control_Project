@@ -1,0 +1,8 @@
+prefix=/home/divjot/catkin_ws/devel
+
+Name: fetch_description
+Description: Description of fetch_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
