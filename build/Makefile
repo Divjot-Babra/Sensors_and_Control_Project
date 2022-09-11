@@ -289,6 +289,19 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
+# Target rules for targets named controller
+
+# Build rule for target.
+controller: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 controller
+.PHONY : controller
+
+# fast build rule for target.
+controller/fast:
+	$(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/controller.dir/build.make fetch_controller/CMakeFiles/controller.dir/build
+.PHONY : controller/fast
+
+#=============================================================================
 # Target rules for targets named fetch_controller_genpy
 
 # Build rule for target.
@@ -560,19 +573,6 @@ fetch_controller_generate_messages_eus: cmake_check_build_system
 fetch_controller_generate_messages_eus/fast:
 	$(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller_generate_messages_eus.dir/build.make fetch_controller/CMakeFiles/fetch_controller_generate_messages_eus.dir/build
 .PHONY : fetch_controller_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named fetch_controller
-
-# Build rule for target.
-fetch_controller: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fetch_controller
-.PHONY : fetch_controller
-
-# fast build rule for target.
-fetch_controller/fast:
-	$(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller.dir/build.make fetch_controller/CMakeFiles/fetch_controller.dir/build
-.PHONY : fetch_controller/fast
 
 #=============================================================================
 # Target rules for targets named roscpp_generate_messages_lisp
@@ -3854,7 +3854,7 @@ help:
 	@echo "... visualization_msgs_generate_messages_nodejs"
 	@echo "... visualization_msgs_generate_messages_py"
 	@echo "... auto_tracker"
-	@echo "... fetch_controller"
+	@echo "... controller"
 	@echo "... fetch_gazebo_plugin"
 	@echo "... flat_world_imu_node"
 	@echo "... gmock"

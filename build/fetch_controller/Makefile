@@ -172,6 +172,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+fetch_controller/CMakeFiles/controller.dir/rule:
+	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fetch_controller/CMakeFiles/controller.dir/rule
+.PHONY : fetch_controller/CMakeFiles/controller.dir/rule
+
+# Convenience name for target.
+controller: fetch_controller/CMakeFiles/controller.dir/rule
+.PHONY : controller
+
+# fast build rule for target.
+controller/fast:
+	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/controller.dir/build.make fetch_controller/CMakeFiles/controller.dir/build
+.PHONY : controller/fast
+
+# Convenience name for target.
 fetch_controller/CMakeFiles/fetch_controller_genpy.dir/rule:
 	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fetch_controller/CMakeFiles/fetch_controller_genpy.dir/rule
 .PHONY : fetch_controller/CMakeFiles/fetch_controller_genpy.dir/rule
@@ -466,20 +480,6 @@ fetch_controller_generate_messages_eus/fast:
 .PHONY : fetch_controller_generate_messages_eus/fast
 
 # Convenience name for target.
-fetch_controller/CMakeFiles/fetch_controller.dir/rule:
-	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fetch_controller/CMakeFiles/fetch_controller.dir/rule
-.PHONY : fetch_controller/CMakeFiles/fetch_controller.dir/rule
-
-# Convenience name for target.
-fetch_controller: fetch_controller/CMakeFiles/fetch_controller.dir/rule
-.PHONY : fetch_controller
-
-# fast build rule for target.
-fetch_controller/fast:
-	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller.dir/build.make fetch_controller/CMakeFiles/fetch_controller.dir/build
-.PHONY : fetch_controller/fast
-
-# Convenience name for target.
 fetch_controller/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
 	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fetch_controller/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 .PHONY : fetch_controller/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
@@ -759,29 +759,29 @@ fetch_controller_generate_messages_lisp/fast:
 	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller_generate_messages_lisp.dir/build.make fetch_controller/CMakeFiles/fetch_controller_generate_messages_lisp.dir/build
 .PHONY : fetch_controller_generate_messages_lisp/fast
 
-src/fetch_controller.o: src/fetch_controller.cpp.o
-.PHONY : src/fetch_controller.o
+src/controller.o: src/controller.cpp.o
+.PHONY : src/controller.o
 
 # target to build an object file
-src/fetch_controller.cpp.o:
-	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller.dir/build.make fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o
-.PHONY : src/fetch_controller.cpp.o
+src/controller.cpp.o:
+	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/controller.dir/build.make fetch_controller/CMakeFiles/controller.dir/src/controller.cpp.o
+.PHONY : src/controller.cpp.o
 
-src/fetch_controller.i: src/fetch_controller.cpp.i
-.PHONY : src/fetch_controller.i
+src/controller.i: src/controller.cpp.i
+.PHONY : src/controller.i
 
 # target to preprocess a source file
-src/fetch_controller.cpp.i:
-	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller.dir/build.make fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.i
-.PHONY : src/fetch_controller.cpp.i
+src/controller.cpp.i:
+	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/controller.dir/build.make fetch_controller/CMakeFiles/controller.dir/src/controller.cpp.i
+.PHONY : src/controller.cpp.i
 
-src/fetch_controller.s: src/fetch_controller.cpp.s
-.PHONY : src/fetch_controller.s
+src/controller.s: src/controller.cpp.s
+.PHONY : src/controller.s
 
 # target to generate assembly for a file
-src/fetch_controller.cpp.s:
-	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/fetch_controller.dir/build.make fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.s
-.PHONY : src/fetch_controller.cpp.s
+src/controller.cpp.s:
+	cd /home/divjot/catkin_ws/build && $(MAKE) $(MAKESILENT) -f fetch_controller/CMakeFiles/controller.dir/build.make fetch_controller/CMakeFiles/controller.dir/src/controller.cpp.s
+.PHONY : src/controller.cpp.s
 
 # Help Target
 help:
@@ -837,10 +837,10 @@ help:
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
-	@echo "... fetch_controller"
-	@echo "... src/fetch_controller.o"
-	@echo "... src/fetch_controller.i"
-	@echo "... src/fetch_controller.s"
+	@echo "... controller"
+	@echo "... src/controller.o"
+	@echo "... src/controller.i"
+	@echo "... src/controller.s"
 .PHONY : help
 
 

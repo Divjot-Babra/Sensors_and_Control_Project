@@ -8,3 +8,6 @@ roslaunch visp_auto_tracker tracklive_usb.launch
 
 To move guider robot:
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+To run fetch controller code:
+rosrun <package_name> <node>

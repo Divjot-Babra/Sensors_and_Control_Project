@@ -133,7 +133,7 @@ include
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(fetch_controller src/fetch_controller.cpp)
+add_executable(controller src/controller.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -143,10 +143,10 @@ add_executable(fetch_controller src/fetch_controller.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(fetch_controller ${fetch_controller_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(controller ${controller_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(fetch_controller ${catkin_LIBRARIES})
+target_link_libraries(controller ${catkin_LIBRARIES})
 
 #############
 ## Install ##

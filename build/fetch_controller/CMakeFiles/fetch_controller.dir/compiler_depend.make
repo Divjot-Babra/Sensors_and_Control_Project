@@ -1100,8 +1100,20 @@ fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o: /ho
   /opt/ros/melodic/include/ros/topic.h \
   /opt/ros/melodic/include/ros/node_handle.h \
   /opt/ros/melodic/include/std_msgs/String.h \
-  /opt/ros/melodic/include/ros/message_operations.h
+  /opt/ros/melodic/include/ros/message_operations.h \
+  /opt/ros/melodic/include/geometry_msgs/PoseArray.h \
+  /opt/ros/melodic/include/std_msgs/Header.h \
+  /opt/ros/melodic/include/geometry_msgs/Pose.h \
+  /opt/ros/melodic/include/geometry_msgs/Point.h \
+  /opt/ros/melodic/include/geometry_msgs/Quaternion.h \
+  /opt/ros/melodic/include/geometry_msgs/Pose2D.h
 
+
+/opt/ros/melodic/include/geometry_msgs/Pose2D.h:
+
+/opt/ros/melodic/include/geometry_msgs/Point.h:
+
+/opt/ros/melodic/include/geometry_msgs/Pose.h:
 
 /opt/ros/melodic/include/ros/message_operations.h:
 
@@ -2137,6 +2149,8 @@ fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o: /ho
 
 /opt/ros/melodic/include/ros/ros.h:
 
+/opt/ros/melodic/include/geometry_msgs/PoseArray.h:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/boost/predef/library/c/_prefix.h:
@@ -2953,6 +2967,8 @@ fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o: /ho
 
 /usr/include/boost/mpl/placeholders.hpp:
 
+/opt/ros/melodic/include/geometry_msgs/Quaternion.h:
+
 /usr/include/boost/mpl/size_fwd.hpp:
 
 /usr/include/boost/mpl/list/aux_/empty.hpp:
@@ -3156,6 +3172,8 @@ fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o: /ho
 /usr/include/c++/7/bits/unique_ptr.h:
 
 /usr/include/boost/mpl/O1_size.hpp:
+
+/opt/ros/melodic/include/std_msgs/Header.h:
 
 /usr/include/boost/mpl/reverse_fold.hpp:
 

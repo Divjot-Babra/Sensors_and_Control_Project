@@ -1102,4 +1102,10 @@ fetch_controller/CMakeFiles/fetch_controller.dir/src/fetch_controller.cpp.o
  /opt/ros/melodic/include/ros/node_handle.h
  /opt/ros/melodic/include/std_msgs/String.h
  /opt/ros/melodic/include/ros/message_operations.h
+ /opt/ros/melodic/include/geometry_msgs/PoseArray.h
+ /opt/ros/melodic/include/std_msgs/Header.h
+ /opt/ros/melodic/include/geometry_msgs/Pose.h
+ /opt/ros/melodic/include/geometry_msgs/Point.h
+ /opt/ros/melodic/include/geometry_msgs/Quaternion.h
+ /opt/ros/melodic/include/geometry_msgs/Pose2D.h
 
