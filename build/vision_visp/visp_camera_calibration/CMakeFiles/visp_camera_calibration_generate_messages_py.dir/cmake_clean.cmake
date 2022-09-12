@@ -1,12 +1,12 @@
 file(REMOVE_RECURSE
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_CalibPoint.py"
+  "CMakeFiles/visp_camera_calibration_generate_messages_py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_CalibPointArray.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_ImageAndPoints.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_CalibPoint.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_ImagePoint.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/_ImageAndPoints.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/srv/_calibrate.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/msg/__init__.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/srv/__init__.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_camera_calibration/srv/_calibrate.py"
-  "CMakeFiles/visp_camera_calibration_generate_messages_py"
 )
 
 # Per-language clean rules from dependency scanning.

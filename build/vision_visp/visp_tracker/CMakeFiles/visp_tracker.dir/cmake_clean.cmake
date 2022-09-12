@@ -1,20 +1,13 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/callbacks.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/conversion.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/file.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/names.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-client.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-viewer.cpp.o"
+  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker.cpp.o"
   "/home/divjot/catkin_ws/devel/lib/libvisp_tracker.pdb"
   "/home/divjot/catkin_ws/devel/lib/libvisp_tracker.so"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/callbacks.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/callbacks.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/conversion.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/conversion.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/file.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/file.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/names.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/names.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-client.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-client.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-viewer.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker-viewer.cpp.o.d"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker.cpp.o"
-  "CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

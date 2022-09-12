@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
-  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/CalibPoint.js"
-  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/CalibPointArray.js"
-  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/ImageAndPoints.js"
-  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/ImagePoint.js"
-  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/srv/calibrate.js"
   "CMakeFiles/visp_camera_calibration_generate_messages_nodejs"
+  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/CalibPointArray.js"
+  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/CalibPoint.js"
+  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/ImagePoint.js"
+  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/msg/ImageAndPoints.js"
+  "/home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_camera_calibration/srv/calibrate.js"
 )
 
 # Per-language clean rules from dependency scanning.

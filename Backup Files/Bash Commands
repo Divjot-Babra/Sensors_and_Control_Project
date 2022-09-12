@@ -1,0 +1,6 @@
+gedit .bashrc
+
+Add the following lines to the bashrc:
+source /opt/ros/melodic/setup.bash
+source /home/divjot/catkin_ws/devel/setup.bash
+export TURTLEBOT3_MODEL=waffle

@@ -1,8 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/divjot/catkin_ws/devel/lib/visp_tracker/tracker"
-  "/home/divjot/catkin_ws/devel/lib/visp_tracker/tracker.pdb"
   "CMakeFiles/tracker.dir/src/nodes/tracker.cpp.o"
-  "CMakeFiles/tracker.dir/src/nodes/tracker.cpp.o.d"
+  "/home/divjot/catkin_ws/devel/lib/visp_tracker/tracker.pdb"
+  "/home/divjot/catkin_ws/devel/lib/visp_tracker/tracker"
 )
 
 # Per-language clean rules from dependency scanning.

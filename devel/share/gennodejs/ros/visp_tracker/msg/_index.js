@@ -1,20 +1,20 @@
 
 "use strict";
 
-let KltPoint = require('./KltPoint.js');
-let TrackerSettings = require('./TrackerSettings.js');
 let KltPoints = require('./KltPoints.js');
+let TrackerSettings = require('./TrackerSettings.js');
 let KltSettings = require('./KltSettings.js');
-let MovingEdgeSite = require('./MovingEdgeSite.js');
-let MovingEdgeSettings = require('./MovingEdgeSettings.js');
 let MovingEdgeSites = require('./MovingEdgeSites.js');
+let MovingEdgeSettings = require('./MovingEdgeSettings.js');
+let MovingEdgeSite = require('./MovingEdgeSite.js');
+let KltPoint = require('./KltPoint.js');
 
 module.exports = {
-  KltPoint: KltPoint,
-  TrackerSettings: TrackerSettings,
   KltPoints: KltPoints,
+  TrackerSettings: TrackerSettings,
   KltSettings: KltSettings,
-  MovingEdgeSite: MovingEdgeSite,
-  MovingEdgeSettings: MovingEdgeSettings,
   MovingEdgeSites: MovingEdgeSites,
+  MovingEdgeSettings: MovingEdgeSettings,
+  MovingEdgeSite: MovingEdgeSite,
+  KltPoint: KltPoint,
 };
