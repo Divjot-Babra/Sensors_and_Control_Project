@@ -1,8 +1,0 @@
-prefix=/home/divjot/catkin_ws/devel
-
-Name: fetchController
-Description: Description of fetchController
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
