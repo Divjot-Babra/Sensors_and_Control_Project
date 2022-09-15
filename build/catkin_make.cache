@@ -1,2 +1,0 @@
-fetch_controller:fetch_gazebo/fetch_gazebo:turtlebot3/turtlebot3_description:turtlebot3/turtlebot3_teleop:vision_visp/vision_visp:vision_visp/visp_auto_tracker:vision_visp/visp_bridge:vision_visp/visp_camera_calibration:vision_visp/visp_hand2eye_calibration:vision_visp/visp_tracker
--DCATKIN_DEVEL_PREFIX=/home/divjot/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/divjot/catkin_ws/install -G Unix Makefiles
