@@ -3,13 +3,15 @@ Project for controlling a Fetch robot for following a guider robot.
 
 ### INSTRUCTIONS FOR INSTALLING REPOSITORY
 
+##### These instructions assume that ROS Melodic has been installed and a catkin workspace has already been created within the home directory.
+
 Open a terminal window and type the following commands:
 ```
 sudo apt-get install ros-melodic-visp
 sudo apt-get install ros-melodic-robot-controllers
 ```
 
-For installing simulator:
+For installing Fetch simulator:
 ```
 sudo apt-get update
 sudo apt-get install ros-melodic-fetch-gazebo-demo
