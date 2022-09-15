@@ -56,7 +56,7 @@
   <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="package://turtlebot3_description/meshes/markers/QrCodeCube.dae" scale="0.3 0.3 0.3"/>
+      <mesh filename="package://turtlebot3_description/meshes/markers/MarkerCube.dae" scale="0.3 0.3 0.3"/>
     </geometry>
   </visual>
  
