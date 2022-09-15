@@ -5,4 +5,4 @@ PROJECT_CATKIN_DEPENDS = "geometry_msgs;message_runtime;roscpp;sensor_msgs;std_m
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "visp_hand2eye_calibration"
 PROJECT_SPACE_DIR = "/home/divjot/catkin_ws/devel"
-PROJECT_VERSION = "0.13.0"
+PROJECT_VERSION = "0.13.1"

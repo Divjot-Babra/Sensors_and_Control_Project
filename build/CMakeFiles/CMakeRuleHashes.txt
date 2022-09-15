@@ -175,7 +175,6 @@ b4ba346abd16d17bbd9d12b32919b993 /home/divjot/catkin_ws/devel/share/gennodejs/ro
 7dc22bf0d155ee28bd8b58b7de559ef6 /home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_tracker/msg/MovingEdgeSites.js
 7ab986f94c1386dd76cd0ea54eddd4d2 /home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_tracker/msg/TrackerSettings.js
 aa9482fddd30c338881b76f876d2bdd6 /home/divjot/catkin_ws/devel/share/gennodejs/ros/visp_tracker/srv/Init.js
-4e9bfbf9d77cf1718173af6596701c33 /home/divjot/catkin_ws/devel/share/roseus/ros/fetchController/manifest.l
 fa75510580404732790c39f17083987e /home/divjot/catkin_ws/devel/share/roseus/ros/fetch_controller/manifest.l
 03cb341e8463508090466a4d12f40431 /home/divjot/catkin_ws/devel/share/roseus/ros/fetchit_challenge/manifest.l
 5f9796189275c26c4cb517ee7c711798 /home/divjot/catkin_ws/devel/share/roseus/ros/fetchit_challenge/msg/SchunkMachineAction.l

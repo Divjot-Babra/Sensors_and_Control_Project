@@ -14,15 +14,6 @@ rosrun <package_name> <node>
 
 GIT COMMANDS
 
------To install Turtlebot robot-----
-cd    ~/catkin_ws/src/  
-git    clone    https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git  
-git    clone    https://github.com/ROBOTIS-GIT/turtlebot3.git  
-git    clone    https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git  
-cd    ~/catkin_ws   
-catkin_make   
-source   devel/setup.bash
-
 -----Add the following lines to your .bashrc (type: gedit .bashrc)-----
 source /opt/ros/melodic/setup.bash
 source /home/<user>/catkin_ws/devel/setup.bash
@@ -33,34 +24,4 @@ export TURTLEBOT3_MODEL=waffle
 Then:
 source    ~/.bashrc
 
------To install Fetch robot-----
-sudo apt install ros-melodic-fetch-calibration ros-melodic-fetch-open-auto-dock ros-melodic-fetch-navigation ros-melodic-fetch-tools -y
-cd    ~/catkin_ws/src/  
-git    clone    https://github.com/fetchrobotics/fetch_gazebo.git    
-cd    ~/catkin_ws
-catkin_make   
-source   devel/setup.bash 
-
------To install visp_auto_tracker-----
-sudo apt-get install ros-melodic-vision-visp
-cd ~/catkin_ws/src
-git clone https://github.com/lagadic/vision_visp.git
-cd vision_visp
-git checkout melodic
-cd ~/catkin_ws
-sudo rosdep init
-rosdep update
-rosdep install --from-paths src --ignore-src --rosdistro melodic
-cd ~/catkin_ws
-catkin_make -j4 -DCMAKE_BUILD_TYPE=Release
-
------To test ROS visual servoing package-----
-roslaunch visp_auto_tracker tracklive_usb.launch
-
------To install gazebo models-----
-Navigate to this folder in a terminal: /home/<user>/catkin_ws/src/fetch_gazebo/fetch_gazebo/models
-Then clone the repository:
-git clone https://github.com/chaolmu/gazebo_models_worlds_collection.git
-
 -----End of commands-----
-

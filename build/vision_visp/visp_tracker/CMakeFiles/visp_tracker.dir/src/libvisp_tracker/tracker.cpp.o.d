@@ -47,7 +47,7 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2.h /usr/include/c++/7/cstdint \
+ /usr/include/c++/7/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
@@ -105,21 +105,17 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
  /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
  /usr/include/x86_64-linux-gnu/bits/sysmacros.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /usr/include/c++/7/bits/std_abs.h /usr/include/c++/7/cstdio \
  /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/libio.h \
  /usr/include/x86_64-linux-gnu/bits/_G_config.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/7/cerrno \
- /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/c++/7/cerrno /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/7/bits/basic_string.tcc \
  /usr/include/boost/filesystem/fstream.hpp /usr/include/boost/config.hpp \
@@ -133,7 +129,6 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd.h \
  /usr/include/boost/config/detail/select_platform_config.hpp \
  /usr/include/boost/config/platform/linux.hpp \
  /usr/include/boost/config/detail/posix_features.hpp \
@@ -555,8 +550,6 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/boost/functional/hash_fwd.hpp \
  /usr/include/boost/functional/hash/hash_fwd.hpp \
  /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
- /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
- /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
  /usr/include/c++/7/fstream \
  /usr/include/x86_64-linux-gnu/c++/7/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++io.h \
@@ -726,7 +719,6 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/x86_64-linux-gnu/bits/mathinline.h \
  /usr/include/c++/7/bits/specfun.h /usr/include/c++/7/tr1/gamma.tcc \
  /usr/include/c++/7/tr1/special_function_util.h \
  /usr/include/c++/7/tr1/bessel_function.tcc \
@@ -1920,6 +1912,8 @@ vision_visp/visp_tracker/CMakeFiles/visp_tracker.dir/src/libvisp_tracker/tracker
  /usr/include/Inventor/SoOutput.h /usr/include/Inventor/fields/SoSFEnum.h \
  /usr/include/Inventor/fields/SoSFVec3f.h /usr/include/Inventor/SbVec3f.h \
  /usr/include/Inventor/SbByteBuffer.h \
+ /usr/include/Inventor/errors/SoDebugError.h \
+ /usr/include/Inventor/errors/SoError.h \
  /usr/include/Inventor/VRMLnodes/SoVRMLIndexedFaceSet.h \
  /usr/include/Inventor/VRMLnodes/SoVRMLIndexedShape.h \
  /usr/include/Inventor/VRMLnodes/SoVRMLVertexShape.h \

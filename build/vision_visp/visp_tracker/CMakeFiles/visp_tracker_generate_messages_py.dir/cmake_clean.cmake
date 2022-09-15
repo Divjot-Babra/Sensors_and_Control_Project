@@ -1,15 +1,15 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/visp_tracker_generate_messages_py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSite.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_TrackerSettings.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_KltSettings.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_KltPoint.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSettings.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSites.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_KltPoints.py"
-  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/srv/_Init.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_KltSettings.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSettings.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSite.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_MovingEdgeSites.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/_TrackerSettings.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/msg/__init__.py"
+  "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/srv/_Init.py"
   "/home/divjot/catkin_ws/devel/lib/python2.7/dist-packages/visp_tracker/srv/__init__.py"
+  "CMakeFiles/visp_tracker_generate_messages_py"
 )
 
 # Per-language clean rules from dependency scanning.

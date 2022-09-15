@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/visp_bridge_convert_camera_parameters.dir/src/conversions/convert_cam_param_file.cpp.o"
-  "/home/divjot/catkin_ws/devel/lib/visp_bridge/visp_bridge_convert_camera_parameters.pdb"
   "/home/divjot/catkin_ws/devel/lib/visp_bridge/visp_bridge_convert_camera_parameters"
+  "/home/divjot/catkin_ws/devel/lib/visp_bridge/visp_bridge_convert_camera_parameters.pdb"
+  "CMakeFiles/visp_bridge_convert_camera_parameters.dir/src/conversions/convert_cam_param_file.cpp.o"
+  "CMakeFiles/visp_bridge_convert_camera_parameters.dir/src/conversions/convert_cam_param_file.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/controller.dir/src/controller.cpp.o"
-  "/home/divjot/catkin_ws/devel/lib/fetch_controller/controller.pdb"
   "/home/divjot/catkin_ws/devel/lib/fetch_controller/controller"
+  "/home/divjot/catkin_ws/devel/lib/fetch_controller/controller.pdb"
+  "CMakeFiles/controller.dir/src/controller.cpp.o"
+  "CMakeFiles/controller.dir/src/controller.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.
