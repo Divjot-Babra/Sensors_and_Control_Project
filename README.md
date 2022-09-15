@@ -1,7 +1,7 @@
 # Sensors and Control Project
 Project for controlling a Fetch robot for following a guider robot.
 
-========== INSTRUCTIONS FOR INSTALLING REPOSITORY ==========
+### INSTRUCTIONS FOR INSTALLING REPOSITORY
 
 Open a terminal window and type the following commands:
 ```
@@ -68,9 +68,32 @@ cd ~/catkin_ws
 catkin_make -j4 -DCMAKE_BUILD_TYPE=Release
 ```
 
-For inserting files into respective directories:
+Clone the Git repository into the *Home* directory using the following SSH URL:
 ```
-...
+cd ~/
+git clone git@github.com:Divjot-Babra/Sensors_and_Control_Project.git
+```
+
+In order to run the simulator, the following files from the repository must be copied to the correct directories within the catkin workspace:
+#### !!! If asked, make sure to replace the files in their respective directories. !!!
+```
+cd ~/Sensors_and_Control_Project/project_files/
+cp fetch.launch.xml ~/catkin_ws/src/fetch_gazebo/fetch_gazebo/launch/include/
+cp myLaunch.launch ~/catkin_ws/src/fetch_gazebo/fetch_gazebo/launch/
+cp myWorld.sdf ~/catkin_ws/src/fetch_gazebo/fetch_gazebo/worlds/ 
+cd ~/catkin_ws/src/turtlebot3/turtlebot3_description/meshes/ 
+mkdir markers
+cd ~/Sensors_and_Control_Project/project_files/
+cp QrCodeCube.dae ~/catkin_ws/src/turtlebot3/turtlebot3_description/meshes/markers/
+cp QrCodeCube.png ~/catkin_ws/src/turtlebot3/turtlebot3_description/meshes/markers/
+cp tracklive_usb.launch ~/catkin_ws/src/vision_visp/visp_auto_tracker/launch/
+cp turtlebot3_waffle.urdf.xacro ~/catkin_ws/src/turtlebot3/turtlebot3_description/urdf/
+```
+
+Build the catkin workspace:
+```
+cd ~/catkin_ws/
+catkin_make
 ```
 
 To start the simulator: 
@@ -78,4 +101,4 @@ To start the simulator:
 roslaunch fetch_gazebo myLaunch.launch
 ```
 
-========== END OF INSTRUCTIONS ==========
+#### --- END OF INSTRUCTIONS ---
