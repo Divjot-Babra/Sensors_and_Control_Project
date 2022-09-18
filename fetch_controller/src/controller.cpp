@@ -24,15 +24,10 @@
 #include "nav_msgs/Odometry.h"
 #include <cmath>
 
-//geometry_msgs::PoseStamped fetchPose;
-int Tracker_Status_ = 0;
-geometry_msgs::PoseStamped GuiderPose_;
+//Global variables to receive info from rostopics
+int Tracker_Status_ = 0;                  //Track the state of sensing
+geometry_msgs::PoseStamped GuiderPose_;   //Return the guider 3D positions in the Fetch camera frame
 
-//Set up callback functions to allow subscribing to specific ROS topics
-//void chatterCallback(const std_msgs::String::ConstPtr& msg)
-//{
-//  ROS_INFO("I heard: [%s]", msg->data.c_str());
-//}
 
 //Callback to determine if the guider is detectable
 void TrackerCallback (const std_msgs::Int8::ConstPtr& msg)
@@ -61,15 +56,16 @@ int main(int argc, char **argv)
   */
 
   //sub1, visp object position, to know how far is the camera to the QR code and angle etc
+  ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 1000, GuiderCallback);
+
   //sub2, visp status, to determine whether the QR code/tracking object is within range
+  ros::Subscriber GuiderState_ = nh.subscribe("/visp_auto_tracker/status", 1000, TrackerCallback);
+
   //sub3, fetch odmo, to know poses of fetch in world, will need it for pure pursuit(PID shouldn't need this)
   //sub4, fetch laser scan, for obstacle avoidance
+  //...
 
   //pub, to publish linear and angular velocity to the fetch robot
-
-//  ros::Subscriber sub = nh.subscribe("chatter", 1000, chatterCallback);
-  ros::Subscriber GuiderState_ = nh.subscribe("/visp_auto_tracker/status", 1000, TrackerCallback);
-  ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 1000, GuiderCallback);
   ros::Publisher FetchFollow = nh.advertise<geometry_msgs::Twist>("/cmd_vel_fetch", 1000);
 
   /* General logics
@@ -104,38 +100,28 @@ int main(int argc, char **argv)
     double FetchLin = 0.0;
     double FetchAng = 0.0;
 
+    //Observe the camera signal
     ROS_INFO_STREAM("Status of VISP: " << Tracker_Status_);
+
     //0 means the camera is detecting, 1 means the QR is recognised
     if(Tracker_Status_ == 1 && Collided == false)
     {
       //If image can be deteched, start path following mode
       PathFollow = true;
       ROS_WARN("Enabling Path Follow Mode!");
-//      ROS_INFO_STREAM("Path Follow Mode Enable!");
-//      if (PathFollow == true)
-//      {
-//        ROS_WARN("Calculating the angle");
-//        //To get the relative angle of guider in the view of fetch camera
-//        double theta = atan(GuiderPose_.pose.position.x/GuiderPose_.pose.position.z);
-//        ROS_WARN("angle (in deg): [%f]", theta*180/M_PI);
-//      }
-//      break;
     }
-    //Below can use to eanble collision avoidance/wall follow mode
-//    else
-//    {
-//      Collided = true;
-//      ROS_WARN("Obstacle Detected!");
-////      ROS_INFO_STREAM("Obstacle Detected!");
-//    }
 
-    if (Tracker_Status_ == 3)
+    else if (Tracker_Status_ == 3)
     {
-      ROS_WARN("Calculating the angle");
+      ROS_WARN("Fetch can see Guider!");
+
       //To get the relative angle of guider in the view of fetch camera
       double theta = atan2(GuiderPose_.pose.position.x, GuiderPose_.pose.position.z);
       theta = theta*180/M_PI;
       ROS_WARN("angle (in deg): [%f]", theta);
+
+      //To obtain perpendicular distance between the fetch camera and guider
+      double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
 
       //If theta is within -4 to 4 (min 3 to look nice), then move straight
       //If 0 < theta < 4, guider turning left, fetch need to rotate CCW
@@ -143,34 +129,74 @@ int main(int argc, char **argv)
       //Fetch should maintain 0.3 from the guider -> 0.3 is roughly the width of a cube in gazebo
       //lin and ang should be around 0.1-0.4m/s -> do 0.2
 
-      if (theta >= -3 && theta <= 3)
+//      if (theta >= -3 && theta <= 3)
+//      {
+//        if(GuiderPose_.pose.position.z <= 0.6)
+//        {
+//          ROS_WARN("Fetch Move forward");
+//          FetchLin = 0.3;
+//          FetchAng = 0;
+//        }
+//        else
+//        {
+//          ROS_WARN("Too close! Stop!");
+//          FetchLin = 0;
+//          FetchAng = 0;
+//        }
+//      }
+//      else if (theta > 4)
+//      {
+//        ROS_WARN("Turning Left");
+//        FetchLin = 0;
+//        FetchAng = 0.15;
+//      }
+//      else if (theta < -4)
+//      {
+//        ROS_WARN("Turning Right");
+//        FetchLin = 0;
+//        FetchAng = -0.15;
+//      }
+      //Always maintain 0.8m (in sim) between fetch and guider
+
+      ROS_INFO_STREAM("Perpenducular distance: " << DistG2F);
+      if(DistG2F >= 0.25)
       {
-        if(GuiderPose_.pose.position.z <= 0.6)
+//        ROS_WARN("Fetch Move forward");
+//        FetchLin = 0.3;
+////        FetchAng = 0;
+        if(theta >= 2)
         {
+          ROS_WARN("Fetch Turning Right");
+          FetchLin = 0.2;
+          FetchAng = -1.0;
+        }
+        else if (theta <= -2)
+        {
+          ROS_WARN("Fetch Turning Left");
+          FetchLin = 0.2;
+          FetchAng = 1.0;
+        }
+        else {
           ROS_WARN("Fetch Move forward");
-          FetchLin = 0.3;
-          FetchAng = 0;
-        }
-        else
-        {
-          ROS_WARN("Too close! Stop!");
-          FetchLin = 0;
+          FetchLin = 0.4;
           FetchAng = 0;
         }
       }
-      else if (theta > 4)
+      else
       {
-        ROS_WARN("Turning Left");
+        ROS_WARN("Fetch Move backward");
         FetchLin = 0;
-        FetchAng = 0.15;
+        FetchAng = 0;
       }
-      else if (theta < -4)
-      {
-        ROS_WARN("Turning Right");
-        FetchLin = 0;
-        FetchAng = -0.15;
-      }
-    }
+//        FetchAng = 3;
+}
+    //Below can use to eanble collision avoidance/wall follow mode
+//    else
+//    {
+//      Collided = true;
+//      ROS_WARN("Obstacle Detected!");
+////      ROS_INFO_STREAM("Obstacle Detected!");
+//    }
 
     Fetch.linear.x = FetchLin;
     Fetch.angular.z = FetchAng;
