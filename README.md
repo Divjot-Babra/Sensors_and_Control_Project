@@ -30,7 +30,7 @@ source devel/setup.bash
 
 Open the .bashrc file:
 ```
-gedit .bashrc
+gedit ~/.bashrc
 ```
 
 Add the following lines to your .bashrc:
