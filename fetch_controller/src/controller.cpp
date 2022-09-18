@@ -168,25 +168,65 @@ int main(int argc, char **argv)
         {
           ROS_WARN("Fetch Turning Right");
           FetchLin = 0.2;
-          FetchAng = -1.0;
+          FetchAng = -1.2;
         }
         else if (theta <= -2)
         {
           ROS_WARN("Fetch Turning Left");
           FetchLin = 0.2;
-          FetchAng = 1.0;
+          FetchAng = 1.2;
         }
         else {
           ROS_WARN("Fetch Move forward");
-          FetchLin = 0.4;
+          FetchLin = 0.3;
           FetchAng = 0;
         }
       }
-      else
+      else if(DistG2F <= 0.25)
       {
         ROS_WARN("Fetch Move backward");
+        FetchLin = -0.2;
+        FetchAng = 0;
+//        if(theta >= 2)
+//        {
+//          ROS_WARN("Fetch Turning Right");
+//          FetchLin = -0.2;
+//          FetchAng = 1.0;
+//        }
+//        else if (theta <= -2)
+//        {
+//          ROS_WARN("Fetch Turning Left");
+//          FetchLin = -0.2;
+//          FetchAng = -1.0;
+//        }
+//        else {
+//          ROS_WARN("Fetch Move backward");
+//          FetchLin = -0.4;
+//          FetchAng = 0;
+//        }
+      }
+      else if (DistG2F <= 0)
+      {
+        ROS_WARN("Fetch Stops");
         FetchLin = 0;
         FetchAng = 0;
+//        if(theta >= 2)
+//        {
+//          ROS_WARN("Fetch Turning Right");
+//          FetchLin = -0.2;
+//          FetchAng = 1.0;
+//        }
+//        else if (theta <= -2)
+//        {
+//          ROS_WARN("Fetch Turning Left");
+//          FetchLin = -0.2;
+//          FetchAng = -1.0;
+//        }
+//        else {
+//          ROS_WARN("Fetch Move backward");
+//          FetchLin = -0.4;
+//          FetchAng = 0;
+//        }
       }
 //        FetchAng = 3;
 }
