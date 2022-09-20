@@ -21,7 +21,7 @@
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description1 -urdf -x 1.5 -y 0 -z 0 -model turtlebot"/>
 
   <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch"/>
-
-  <include file="$(find visp_auto_tracker)/launch/tracklive_usb.launch"/> 
-
+<!--
+  <include file="$(find visp_auto_tracker)/launch/tracklive_usb.launch"/>
+-->
 </launch>
