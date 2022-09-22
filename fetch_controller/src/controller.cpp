@@ -162,130 +162,116 @@ int main(int argc, char **argv)
       //If -4< theta < 0, guider turning right, fetch need to rotate CW
       //Fetch should maintain 0.3 from the guider -> 0.3 is roughly the width of a cube in gazebo
       //lin and ang should be around 0.1-0.4m/s -> do 0.2
-
-//      if (theta >= -3 && theta <= 3)
-//      {
-//        if(GuiderPose_.pose.position.z <= 0.6)
-//        {
-//          ROS_WARN("Fetch Move forward");
-//          FetchLin = 0.3;
-//          FetchAng = 0;
-//        }
-//        else
-//        {
-//          ROS_WARN("Too close! Stop!");
-//          FetchLin = 0;
-//          FetchAng = 0;
-//        }
-//      }
-//      else if (theta > 4)
-//      {
-//        ROS_WARN("Turning Left");
-//        FetchLin = 0;
-//        FetchAng = 0.15;
-//      }
-//      else if (theta < -4)
-//      {
-//        ROS_WARN("Turning Right");
-//        FetchLin = 0;
-//        FetchAng = -0.15;
-//      }
       //Always maintain 0.8m (in sim) between fetch and guider
 
-      ROS_INFO_STREAM("Perpenducular distance: " << DistG2F);
-      if(DistG2F >= FOLLOWING_DISTANCE)
+      int Switch = 0;
+      if (DistG2F >= 0.3)
       {
-//        ROS_WARN("Fetch Move forward");
-//        FetchLin = 0.3;
-////        FetchAng = 0;
-        if(theta >= 2)
-        {
-          ROS_WARN("Fetch Turning Right");
-          FetchLin = 0.2;
-          FetchAng = -1.2;
-
-//         ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
-
-//          //Fetch needs to move faster ~ add in a factor - angular needs to be bigger than linear.
-//          FetchLin = tlinx * SCALE_LINEAR;
-//          FetchAng = - fabs(tangz * SCALE_ANGULAR);
-
-        }
-
-        else if (theta <= -2)
-        {
-          ROS_WARN("Fetch Turning Left");
-         FetchLin = 0.2;
-         FetchAng = 1.2;
-
-//          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
-//          FetchLin = tlinx * SCALE_LINEAR;
-//          FetchAng = fabs(tangz * SCALE_ANGULAR);
-        }
-        else {
-          ROS_WARN("Fetch Move forward");
-          FetchLin = 0.3;
-          FetchAng = 0;
-
-//          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
-//          FetchLin = tlinx * SCALE_LINEAR;
-//          FetchAng = 0;
-        }
+        Switch = 1;
       }
-      else if(DistG2F <= FOLLOWING_DISTANCE)
+      else if (DistG2F > 0.25 && DistG2F < 0.3)
       {
-        ROS_WARN("Fetch Move backward");
-        FetchLin = -0.2;
-        FetchAng = 0;
-
-//       ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
-
-//        FetchLin = - fabs(tlinx * SCALE_LINEAR);
-//        FetchAng = 0;
-
-
-//        if(theta >= 2)
-//        {
-//          ROS_WARN("Fetch Turning Right");
-//          FetchLin = -0.2;
-//          FetchAng = 1.0;
-//        }
-//        else if (theta <= -2)
-//        {
-//          ROS_WARN("Fetch Turning Left");
-//          FetchLin = -0.2;
-//          FetchAng = -1.0;
-//        }
-//        else {
-//          ROS_WARN("Fetch Move backward");
-//          FetchLin = -0.4;
-//          FetchAng = 0;
-//        }
+        Switch = 2;
       }
-      else if (DistG2F <= 0)
+      else if (DistG2F > 0.1 && DistG2F <= 0.25)
       {
-        ROS_WARN("Fetch Stops");
+        Switch = 3;
+      }
+
+      if ((theta < 2 && theta > -2) && Switch == 1)
+      {
+        ROS_WARN("Fetch Moving forward");
+        FetchLin = 0.3;
+        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = FetchAng;
+
+        FetchFollow.publish(Fetch);
+      }
+      else if (theta < -2 && Switch == 1)
+      {
+        ROS_WARN("Fetch Turning LEFT");
+        FetchAng = 2;
+        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = FetchAng;
+
+        FetchFollow.publish(Fetch);
+      }
+      else if (theta > 2 && Switch == 1)
+      {
+        ROS_WARN("Fetch Turning RIGHT");
+        FetchAng = -2;
+        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = FetchAng;
+
+        FetchFollow.publish(Fetch);
+      }
+      else if (Switch == 3)
+      {
+        ROS_WARN("Fetch Moving BACKWARD");
+        FetchLin = -0.3;
+        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = FetchAng;
+
+        FetchFollow.publish(Fetch);
+      }
+      else if (Switch == 2)
+      {
+        ROS_WARN("Fetch STOP");
         FetchLin = 0;
-        FetchAng = 0;
+        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = FetchAng;
+
+        FetchFollow.publish(Fetch);
+      }
+
+//      ROS_INFO_STREAM("Perpenducular distance: " << DistG2F);
+//      if(DistG2F >= FOLLOWING_DISTANCE)
+//      {
 //        if(theta >= 2)
 //        {
 //          ROS_WARN("Fetch Turning Right");
-//          FetchLin = -0.2;
-//          FetchAng = 1.0;
+////          FetchLin = 0.2;
+//          FetchAng = -1.2;
+
+////         ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+
+////          //Fetch needs to move faster ~ add in a factor - angular needs to be bigger than linear.
+////          FetchLin = tlinx * SCALE_LINEAR;
+////          FetchAng = - fabs(tangz * SCALE_ANGULAR);
+
 //        }
+
 //        else if (theta <= -2)
 //        {
 //          ROS_WARN("Fetch Turning Left");
-//          FetchLin = -0.2;
-//          FetchAng = -1.0;
+////         FetchLin = 0.2;
+//         FetchAng = 1.2;
+
+////          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+////          FetchLin = tlinx * SCALE_LINEAR;
+////          FetchAng = fabs(tangz * SCALE_ANGULAR);
 //        }
 //        else {
-//          ROS_WARN("Fetch Move backward");
-//          FetchLin = -0.4;
-//          FetchAng = 0;
+//          ROS_WARN("Fetch Move forward");
+//          FetchLin = 0.3;
+////          FetchAng = 0;
+
+////          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+////          FetchLin = tlinx * SCALE_LINEAR;
+////          FetchAng = 0;
 //        }
-      }
-//        FetchAng = 3;
+//      }
+//      else if(DistG2F <= FOLLOWING_DISTANCE)
+//      {
+//        ROS_WARN("Fetch Move backward");
+//        FetchLin = -0.2;
+//      }
+//      else if (DistG2F <= 0)
+//      {
+//        ROS_WARN("Fetch Stops");
+//        FetchLin = 0;
+//        FetchAng = 0;
+//      }
 }
     //Below can use to eanble collision avoidance/wall follow mode
 //    else
@@ -295,10 +281,12 @@ int main(int argc, char **argv)
 ////      ROS_INFO_STREAM("Obstacle Detected!");
 //    }
 
-    Fetch.linear.x = FetchLin;
-    Fetch.angular.z = FetchAng;
+//    FetchAng = 2;
 
-    FetchFollow.publish(Fetch);
+//    Fetch.linear.x = FetchLin;
+//    Fetch.angular.z = FetchAng;
+
+//    FetchFollow.publish(Fetch);
 
     ros::spinOnce();
     loop_rate.sleep();
