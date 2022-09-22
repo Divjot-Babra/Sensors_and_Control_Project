@@ -24,10 +24,16 @@
 #include "nav_msgs/Odometry.h"
 #include <cmath>
 
+#define FOLLOWING_DISTANCE 0.3
+#define SCALE_LINEAR 7
+#define SCALE_ANGULAR 75
+
 //Global variables to receive info from rostopics
 int Tracker_Status_ = 0;                  //Track the state of sensing
 geometry_msgs::PoseStamped GuiderPose_;   //Return the guider 3D positions in the Fetch camera frame
+geometry_msgs::Twist TurtlebotSpeed_;
 
+double tlinx, tangz;
 
 //Callback to determine if the guider is detectable
 void TrackerCallback (const std_msgs::Int8::ConstPtr& msg)
@@ -39,6 +45,19 @@ void TrackerCallback (const std_msgs::Int8::ConstPtr& msg)
 void GuiderCallback (const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
   GuiderPose_.pose = msg.get()->pose;
+}
+
+//Callback to speed from turtlebot
+void TurtlebotSpeedCallback (const geometry_msgs::Twist::ConstPtr& msg)
+{
+  TurtlebotSpeed_.linear.x = msg.get()->linear.x;
+  TurtlebotSpeed_.angular.z = msg.get()->angular.z;
+
+//  tlinx = msg.get()->linear.x;
+//  tangz = msg.get()->angular.z;
+
+    //TurtlebotSpeed_.twist = msg;
+
 }
 
 
@@ -56,10 +75,13 @@ int main(int argc, char **argv)
   */
 
   //sub1, visp object position, to know how far is the camera to the QR code and angle etc
-  ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 1000, GuiderCallback);
+  ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 100, GuiderCallback);
 
   //sub2, visp status, to determine whether the QR code/tracking object is within range
-  ros::Subscriber GuiderState_ = nh.subscribe("/visp_auto_tracker/status", 1000, TrackerCallback);
+  ros::Subscriber GuiderState_ = nh.subscribe("/visp_auto_tracker/status", 100, TrackerCallback);
+
+  //sub3, turtlebot speed,
+  ros::Subscriber TurtlebotSpeedSub_ = nh.subscribe("/cmd_vel", 1000, TurtlebotSpeedCallback);
 
   //sub3, fetch odmo, to know poses of fetch in world, will need it for pure pursuit(PID shouldn't need this)
   //sub4, fetch laser scan, for obstacle avoidance
@@ -100,6 +122,13 @@ int main(int argc, char **argv)
     double FetchLin = 0.0;
     double FetchAng = 0.0;
 
+//    geometry_msgs::Twist TurtlebotSpeed;
+//    TurtlebotSpeed.linear.x = tlinx;
+//    TurtlebotSpeed.angular.z = tangz;
+
+    tlinx = TurtlebotSpeed_.linear.x;
+    tangz = TurtlebotSpeed_.angular.z;
+
     //Observe the camera signal
     ROS_INFO_STREAM("Status of VISP: " << Tracker_Status_);
 
@@ -110,6 +139,11 @@ int main(int argc, char **argv)
       PathFollow = true;
       ROS_WARN("Enabling Path Follow Mode!");
     }
+
+    // ~ Needs another condition
+    // need to return to this state once we have avoided the collision
+    // add a boolean
+    //
 
     else if (Tracker_Status_ == 3)
     {
@@ -159,7 +193,7 @@ int main(int argc, char **argv)
       //Always maintain 0.8m (in sim) between fetch and guider
 
       ROS_INFO_STREAM("Perpenducular distance: " << DistG2F);
-      if(DistG2F >= 0.25)
+      if(DistG2F >= FOLLOWING_DISTANCE)
       {
 //        ROS_WARN("Fetch Move forward");
 //        FetchLin = 0.3;
@@ -169,24 +203,47 @@ int main(int argc, char **argv)
           ROS_WARN("Fetch Turning Right");
           FetchLin = 0.2;
           FetchAng = -1.2;
+
+//         ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+
+//          //Fetch needs to move faster ~ add in a factor - angular needs to be bigger than linear.
+//          FetchLin = tlinx * SCALE_LINEAR;
+//          FetchAng = - fabs(tangz * SCALE_ANGULAR);
+
         }
+
         else if (theta <= -2)
         {
           ROS_WARN("Fetch Turning Left");
-          FetchLin = 0.2;
-          FetchAng = 1.2;
+         FetchLin = 0.2;
+         FetchAng = 1.2;
+
+//          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+//          FetchLin = tlinx * SCALE_LINEAR;
+//          FetchAng = fabs(tangz * SCALE_ANGULAR);
         }
         else {
           ROS_WARN("Fetch Move forward");
           FetchLin = 0.3;
           FetchAng = 0;
+
+//          ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+//          FetchLin = tlinx * SCALE_LINEAR;
+//          FetchAng = 0;
         }
       }
-      else if(DistG2F <= 0.25)
+      else if(DistG2F <= FOLLOWING_DISTANCE)
       {
         ROS_WARN("Fetch Move backward");
         FetchLin = -0.2;
         FetchAng = 0;
+
+//       ROS_INFO_STREAM("Linear and angular " << tlinx << " " << tangz);
+
+//        FetchLin = - fabs(tlinx * SCALE_LINEAR);
+//        FetchAng = 0;
+
+
 //        if(theta >= 2)
 //        {
 //          ROS_WARN("Fetch Turning Right");
@@ -251,3 +308,29 @@ int main(int argc, char **argv)
 
   return 0;
 }
+
+// NOTE: idk if we need this, because the robot can rotate in place.
+
+// pure pursuit algo that determines length of arc.
+void PurePursuit ( /*Intakes distance to guider & x axis coordinate */)
+{
+
+    //ROBOT rotates to face the qr code
+    // robot moves forward toward qr code
+
+
+    //arc = ( 2 * x ) / sqrt (distance) 
+
+    //
+
+    // need to determine angular and linear velocity from this
+    
+
+    // return arc
+}
+
+// To be implemented after PP
+//void PID (/*intakes distance readings*/)
+//{
+
+//}
