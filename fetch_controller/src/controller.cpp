@@ -119,8 +119,8 @@ int main(int argc, char **argv)
 
     //To control lin and ang velocity of the fetch robot
     geometry_msgs::Twist Fetch;
-    double FetchLin = 0.0;
-    double FetchAng = 0.0;
+//    double FetchLin = 0.0;
+//    double FetchAng = 0.0;
 
 //    geometry_msgs::Twist TurtlebotSpeed;
 //    TurtlebotSpeed.linear.x = tlinx;
@@ -181,45 +181,45 @@ int main(int argc, char **argv)
       if ((theta < 2 && theta > -2) && Switch == 1)
       {
         ROS_WARN("Fetch Moving forward");
-        FetchLin = 0.3;
-        Fetch.linear.x = FetchLin;
-        Fetch.angular.z = FetchAng;
+//        FetchLin = 0.3;
+        Fetch.linear.x = 0.3;
+//        Fetch.angular.z = FetchAng;
 
         FetchFollow.publish(Fetch);
       }
       else if (theta < -2 && Switch == 1)
       {
         ROS_WARN("Fetch Turning LEFT");
-        FetchAng = 2;
-        Fetch.linear.x = FetchLin;
-        Fetch.angular.z = FetchAng;
+//        FetchAng = 1;
+//        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = 0.5;
 
         FetchFollow.publish(Fetch);
       }
       else if (theta > 2 && Switch == 1)
       {
         ROS_WARN("Fetch Turning RIGHT");
-        FetchAng = -2;
-        Fetch.linear.x = FetchLin;
-        Fetch.angular.z = FetchAng;
+//        FetchAng = -1;
+//        Fetch.linear.x = FetchLin;
+        Fetch.angular.z = -0.5;
 
         FetchFollow.publish(Fetch);
       }
       else if (Switch == 3)
       {
         ROS_WARN("Fetch Moving BACKWARD");
-        FetchLin = -0.3;
-        Fetch.linear.x = FetchLin;
-        Fetch.angular.z = FetchAng;
+//        FetchLin = -0.3;
+        Fetch.linear.x = -0.3;
+//        Fetch.angular.z = FetchAng;
 
         FetchFollow.publish(Fetch);
       }
       else if (Switch == 2)
       {
         ROS_WARN("Fetch STOP");
-        FetchLin = 0;
-        Fetch.linear.x = FetchLin;
-        Fetch.angular.z = FetchAng;
+//        FetchLin = 0;
+        Fetch.linear.x = 0;
+//        Fetch.angular.z = FetchAng;
 
         FetchFollow.publish(Fetch);
       }
