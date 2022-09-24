@@ -28,6 +28,8 @@
 #define SCALE_LINEAR 7
 #define SCALE_ANGULAR 75
 
+#define LOOK_AHEAD 1
+
 //Global variables to receive info from rostopics
 int Tracker_Status_ = 0;                  //Track the state of sensing
 geometry_msgs::PoseStamped GuiderPose_;   //Return the guider 3D positions in the Fetch camera frame
@@ -187,7 +189,7 @@ int main(int argc, char **argv)
 
         FetchFollow.publish(Fetch);
       }
-      else if (theta < -2 && Switch == 1)
+      else if (theta < 5 && Switch == 1)
       {
         ROS_WARN("Fetch Turning LEFT");
 //        FetchAng = 1;
@@ -196,7 +198,7 @@ int main(int argc, char **argv)
 
         FetchFollow.publish(Fetch);
       }
-      else if (theta > 2 && Switch == 1)
+      else if (theta > 5 && Switch == 1)
       {
         ROS_WARN("Fetch Turning RIGHT");
 //        FetchAng = -1;
@@ -297,28 +299,37 @@ int main(int argc, char **argv)
   return 0;
 }
 
-// NOTE: idk if we need this, because the robot can rotate in place.
+// BasicPursuit function
+//{
+//}
 
-// pure pursuit algo that determines length of arc.
-void PurePursuit ( /*Intakes distance to guider & x axis coordinate */)
-{
+//// pure pursuit algo that determines length of arc.
+//void PurePursuit (double distance, double angle)
+//{
+//    double y;
+//    double x;
 
-    //ROBOT rotates to face the qr code
-    // robot moves forward toward qr code
+//    y = 2*x/sqrt(l);
 
+//    //ROBOT rotates to face the qr code
+//    //robot moves forward toward qr code
 
-    //arc = ( 2 * x ) / sqrt (distance) 
+//    //arc = ( 2 * x ) / sqrt (distance)
 
-    //
+//    //angular vel = curvature * linear vel ~ w = y *
 
-    // need to determine angular and linear velocity from this
-    
+//    // need to determine angular and linear velocity from this
 
-    // return arc
-}
+//    // return arc
+//}
 
-// To be implemented after PP
+//To be implemented after PP
 //void PID (/*intakes distance readings*/)
 //{
 
+//}
+
+//void collisionavoidance
+//{
+//
 //}
