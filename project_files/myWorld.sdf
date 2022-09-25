@@ -5,7 +5,7 @@
       <uri>model://ground_plane</uri>
     </include>
 
-    <include>
+<!--    <include>
       <uri>model://office_small</uri>
     </include>
 
@@ -28,7 +28,7 @@
     <include>
       <uri>model://cup_yellow</uri>
       <pose>4.31 0.14 0.51 0 0 0</pose>
-    </include>
+    </include>-->
 
     <include>
       <uri>model://sun</uri>
