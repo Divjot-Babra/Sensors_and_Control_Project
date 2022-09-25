@@ -1,15 +1,15 @@
 /*! @file
  *
- *  @brief 41014 Sensors & Controls - Fetch Following Project
+ *  @brief 41014 Sensors & Controls for Mechatronic Systems - Fetch Following Project
  *
- *  This class contains the basic path following algoritm to allow fetch follow the guider object
+ *  This class contains the path following algorithm for controlling the Fetch robot to follow a marker pattern.
  *
- *  @note this class is to be splited into other header and implementation files later
+ *  @note This class will be split into a header and implementation file later.
  *
- *  @author Zhifeng Huang
- *  @maintainer Zhifeng Huang
- *  @date 17-09-2022
- *  @note initial release 17-09-2022
+ *  @author Zhifeng Huang, Lee Madden & Divjot Babra
+ *  @maintainer Zhifeng Huang, Lee Madden & Divjot Babra
+ *  @date 25-09-2022
+ *  @note Initial release 17-09-2022
 */
 
 #include "ros/ros.h"
@@ -19,31 +19,31 @@
 
 #include "geometry_msgs/PoseArray.h"
 #include "geometry_msgs/Pose2D.h"
-#include "tf/transform_datatypes.h" //To use getYaw function from the quaternion of orientation
+#include "tf/transform_datatypes.h"
 #include "sensor_msgs/LaserScan.h"
 #include "nav_msgs/Odometry.h"
 #include <cmath>
 
 #define FOLLOWING_DISTANCE 0.3
+
 double last_error_Lin = 0;
 double last_error_Ang = 0;
 
-//Global variables to receive info from rostopics
+// Global variables to receive info from rostopics
 int Tracker_Status_ = 0;                  //Track the state of sensing
 geometry_msgs::PoseStamped GuiderPose_;   //Return the guider 3D positions in the Fetch camera frame
 
-//Callback to determine if the guider is detectable
+// Callback to determine if the guider is detectable
 void TrackerCallback (const std_msgs::Int8::ConstPtr& msg)
 {
   Tracker_Status_ = msg.get()->data;
 }
 
-//Callback to retrieve guider pose in fetch camera's local frame
+// Callback to retrieve guider pose from Fetch camera
 void GuiderCallback (const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
   GuiderPose_.pose = msg.get()->pose;
 }
-
 
 double LinearPID(double CurrentDist, double TargetDist)
 {
@@ -70,6 +70,7 @@ double AngularPID(double CurrentAng, double TargetAng)
   double KD = 0.05;
 
   double error = TargetAng - CurrentAng;
+
   double derivative = error - last_error_Ang;
 
   double Angvel = KP*error + KD*derivative;
@@ -84,73 +85,73 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "fetch_controller");
   ros::NodeHandle nh;
 
-  //sub1, visp object position, to know how far is the camera to the QR code and angle etc
+  // Subscriber1 - visp object pose, returns pose of marker pattern
   ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 100, GuiderCallback);
 
-  //sub2, visp status, to determine whether the QR code/tracking object is within range
+  // Subscriber2 - visp status, returns range status of marker pattern
   ros::Subscriber GuiderState_ = nh.subscribe("/visp_auto_tracker/status", 100, TrackerCallback);
 
-  //sub3, fetch odmo, to know poses of fetch in world, will need it for pure pursuit(PID shouldn't need this)
-  //sub4, fetch laser scan, for obstacle avoidance
+  // Subscriber3 - fetch odmo, to know poses of fetch in world, will need it for pure pursuit(PID shouldn't need this)
+  // Subscriber4 - fetch laser scan, for obstacle avoidance
 
-  //pub, to publish linear and angular velocity to the fetch robot
+  // Publisher1 - fetch velocity, to publish linear and angular velocity to the Fetch robot
   ros::Publisher FetchFollow = nh.advertise<geometry_msgs::Twist>("/cmd_vel_fetch", 1000);
 
   ros::Rate loop_rate(10);
 
   while (ros::ok())
   {
-    //Below variables can use to enter different mode
+    // Below variables can use to enter different mode
     bool PathFollow = false;
     bool Collided = false;
     bool NearestWall = false;
 
-    //To control lin and ang velocity of the fetch robot
+    // To control linear and angular velocity of the fetch robot
     geometry_msgs::Twist Fetch;
     double FetchLin = 0.0;
     double FetchAng = 0.0;
 
-    //Observe the camera signal
+    // Observe the camera signal
     ROS_INFO_STREAM("Status of VISP: " << Tracker_Status_);
 
-    //0 means the camera is detecting, 1 means the QR is recognised
+    // 0 means the camera is in detecting mode, 1 means it is in tracking mode
     if(Tracker_Status_ == 1 && Collided == false)
     {
-      //If image can be deteched, start path following mode
+      // If image can be detected, start path following mode
       PathFollow = true;
       ROS_WARN("Enabling Path Follow Mode!");
     }
 
-    //Path Following here
+    // Path Following here
     else if (Tracker_Status_ == 3)
     {
       ROS_WARN("Fetch can see Guider!");
 
-      //To get the relative angle of guider in the view of fetch camera
+      // To get the relative angle of guider from Fetch's camera
       double theta = atan2(GuiderPose_.pose.position.x, GuiderPose_.pose.position.z);
       theta = theta*180/M_PI;
       ROS_WARN("angle (in deg): [%f]", theta);
 
-      //To obtain perpendicular distance between the fetch camera and guider
+      // To obtain perpendicular distance between the Fetch's camera and guider
       double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
 
-      //If theta is within -4 to 4 (min 3 to look nice), then move straight
-      //If 0 < theta < 4, guider turning left, fetch need to rotate CCW
-      //If -4< theta < 0, guider turning right, fetch need to rotate CW
-      //Fetch should maintain 0.3 from the guider -> 0.3 is roughly the width of a cube in gazebo
-      //lin and ang should be around 0.1-0.4m/s -> do 0.2
-      //Always maintain 0.8m (in sim) between fetch and guider
+      // If theta is within -4 to 4 (min 3 to look nice), then move straight
+      // If 0 < theta < 4, guider turning left, Fetch need to rotate CCW
+      // If -4 < theta < 0, guider turning right, Fetch need to rotate CW
+      // Fetch should maintain 0.3 from the guider -> 0.3 is roughly the width of a cube in Gazebo
+      // lin and ang should be around 0.1-0.4m/s -> do 0.2
+      // Always maintain 0.8m (in Gazebo) between Fetch and marker pattern
 
       int Switch = 0;
-      if (DistG2F >= 0.3)                         //Follow in STRAIGHT path
+      if (DistG2F >= 0.3)                         // Too far from marker pattern - move STRAIGHT
       {
         Switch = 1;
       }
-      else if (DistG2F > 0.25 && DistG2F < 0.3)   //Perfect distance, fetch STOP
+      else if (DistG2F > 0.25 && DistG2F < 0.3)   // Perfect distance - STOP Fetch
       {
         Switch = 2;
       }
-      else if (DistG2F > 0.1 && DistG2F <= 0.25)  //Too close to guider, REVERSE
+      else if (DistG2F > 0.1 && DistG2F <= 0.25)  // Too close to marker pattern - REVERSE
       {
         Switch = 3;
       }
@@ -205,20 +206,20 @@ int main(int argc, char **argv)
 }
 
 
-// BasicPursuit function
+// Basic Pure Pursuit algorithm
 //{
 //}
 
-//// pure pursuit algo that determines length of arc.
-//void PurePursuit (double distance, double angle)
+//// Pure pursuit algorithm that determines length of arc
+//void PurePursuit(double distance, double angle)
 //{
 //    double y;
 //    double x;
 
 //    y = 2*x/sqrt(l);
 
-//    //ROBOT rotates to face the qr code
-//    //robot moves forward toward qr code
+//    //Robot rotates to face the marker code
+//    //robot moves forward toward marker code
 
 //    //arc = ( 2 * x ) / sqrt (distance)
 
@@ -235,7 +236,7 @@ int main(int argc, char **argv)
 
 //}
 
-//void collisionavoidance
+//void ObstacleDetection
 //{
 //
 //}
