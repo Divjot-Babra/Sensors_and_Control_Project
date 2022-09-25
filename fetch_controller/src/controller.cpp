@@ -25,6 +25,8 @@
 #include <cmath>
 
 #define FOLLOWING_DISTANCE 0.3
+double last_error_Lin = 0;
+double last_error_Ang = 0;
 
 //Global variables to receive info from rostopics
 int Tracker_Status_ = 0;                  //Track the state of sensing
@@ -42,6 +44,40 @@ void GuiderCallback (const geometry_msgs::PoseStamped::ConstPtr& msg)
   GuiderPose_.pose = msg.get()->pose;
 }
 
+
+double LinearPID(double CurrentDist, double TargetDist)
+{
+  double KP = -2.5;
+//  double KI = 0;
+  double KD = 1.4;
+
+  double error = TargetDist - CurrentDist;
+
+//  double integrals += error;
+  double derivative = error - last_error_Lin;
+
+  double Linvel = KP*error + KD*derivative;
+
+  last_error_Lin = error;
+
+  return Linvel;
+}
+
+double AngularPID(double CurrentAng, double TargetAng)
+{
+  double KP = 0.1;
+//  double KI = 0;
+  double KD = 0.05;
+
+  double error = TargetAng - CurrentAng;
+  double derivative = error - last_error_Ang;
+
+  double Angvel = KP*error + KD*derivative;
+
+  last_error_Ang = error;
+
+  return Angvel;
+}
 
 int main(int argc, char **argv)
 {
@@ -119,25 +155,32 @@ int main(int argc, char **argv)
         Switch = 3;
       }
 
-      if ((theta < 5 && theta > -5) && Switch == 1)
+      if ((theta < 2 && theta > -2) && Switch == 1)
       {
         ROS_WARN("Fetch Moving forward");
-        FetchLin = 0.3;
+//        FetchLin = 0.3;
+        FetchLin = LinearPID(DistG2F, 0.3);
       }
-      else if (theta < -5 && Switch == 1)
+      else if (theta < -2 && Switch == 1)
       {
         ROS_WARN("Fetch Turning LEFT");
-        FetchAng = 0.5;
+//        FetchAng = 0.5;
+        FetchLin = LinearPID(DistG2F, 0.3);
+        FetchAng = AngularPID(theta, 2);
       }
-      else if (theta > 5 && Switch == 1)
+      else if (theta > 2 && Switch == 1)
       {
         ROS_WARN("Fetch Turning RIGHT");
-        FetchAng = -0.5;
+//        FetchAng = -0.5;
+        FetchLin = LinearPID(DistG2F, 0.3);
+        FetchAng = AngularPID(theta, 2);
       }
       else if (Switch == 3)
       {
         ROS_WARN("Fetch Moving BACKWARD");
-        FetchLin = -0.3;
+//        FetchLin = -0.3;
+        FetchLin = LinearPID(DistG2F, 0.3);
+//        FetchLin = -1 * FetchLin;
       }
       else if (Switch == 2)
       {
