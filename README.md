@@ -1,5 +1,5 @@
 # Sensors and Control Project
-Project for controlling a Fetch robot for following a guider robot.
+Project for controlling a Fetch robot for following a marker pattern.
 
 ### INSTRUCTIONS FOR INSTALLING REPOSITORY
 
