@@ -98,9 +98,26 @@ cd ~/catkin_ws/
 catkin_make
 ```
 
-To start the simulator: 
+To start the simulator, open a new terminal and type: 
 ```
 roslaunch fetch_gazebo myLaunch.launch
 ```
+
+To start the visual servoing algorithm, open a new terminal and type: 
+```
+roslaunch visp_auto_tracker tracklive_usb.launch
+```
+
+To start the path following algorithm, open a new terminal and type: 
+```
+rosrun fetch_controller controller
+```
+
+##### To control the guider robot, click on the simulator terminal (first terminal) and type the following commands: 
+- To move forward: w
+- To reverse: x
+- To turn right: d
+- To turn left: a
+- To stop: s
 
 #### --- END OF INSTRUCTIONS ---
