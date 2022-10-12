@@ -280,48 +280,48 @@ int main(int argc, char **argv)
             double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
 
             // if obstacle is detected and it hasnt been dodged, start dodging
-            if (Obstacle_Detected == true && Obstacle_Dodged == false)
-            {
+//            if (Obstacle_Detected == true && Obstacle_Dodged == false)
+//            {
 
-              ROS_WARN("DODGING OBSTACLE");
+//              ROS_WARN("DODGING OBSTACLE");
 
-              // dodge right
-                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
-                {
-                    ROS_WARN("DODGING RIGHT");
-                    TurnRight = true;
-                    TurnLeft = false;
+//              // dodge right
+//                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
+//                {
+//                    ROS_WARN("DODGING RIGHT");
+//                    TurnRight = true;
+//                    TurnLeft = false;
 
-                  FetchLin = 0.6;
-                  FetchAng = -0.8;
-//                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
-//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-                }
+//                  FetchLin = 0.6;
+//                  FetchAng = -0.8;
+////                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
+////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+//                }
 
-               // dodge left
-                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
-                {
-                    ROS_WARN("DODGING LEFT");
-                    TurnLeft = true;
-                    TurnRight = false;
+//               // dodge left
+//                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
+//                {
+//                    ROS_WARN("DODGING LEFT");
+//                    TurnLeft = true;
+//                    TurnRight = false;
 
-                  FetchLin = 0.6;
-                  FetchAng = 0.8;
-//                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
-//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-                }
+//                  FetchLin = 0.6;
+//                  FetchAng = 0.8;
+////                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
+////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+//                }
 
-                // obstacle dodged set to true
-                else
-                {
-                Obstacle_Dodged = true;
-                break;
-                }
-            }
+//                // obstacle dodged set to true
+//                else
+//                {
+//                Obstacle_Dodged = true;
+//                break;
+//                }
+//            }
 
             // when no obstacle is detected, just follow the guider
-            else if (Obstacle_Detected == false)
-            {
+//            else if (Obstacle_Detected == false)
+//            {
               ROS_WARN("NO NEED TO DODGE");
 
               // If theta is within -4 to 4 (min 3 to look nice), then move straight
@@ -389,7 +389,7 @@ int main(int argc, char **argv)
                   }
               }
 
-            }
+//            }
 
           Fetch.linear.x = FetchLin;
           Fetch.angular.z = FetchAng;
