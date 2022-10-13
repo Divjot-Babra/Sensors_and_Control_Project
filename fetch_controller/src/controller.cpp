@@ -316,7 +316,7 @@ int main(int argc, char **argv)
                 Obstacle_Dodged = true;
                 break;
                 }
-            }
+              }
 
             // when no obstacle is detected, just follow the guider
             else if (Obstacle_Detected == false)
