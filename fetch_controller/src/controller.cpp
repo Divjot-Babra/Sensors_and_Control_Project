@@ -47,9 +47,8 @@ double last_error_Ang = 0;
 // Global variables to receive info from rostopics
 int Tracker_Status_ = 0;                  //Track the state of sensing
 geometry_msgs::PoseStamped GuiderPose_;   //Return the guider 3D positions in the Fetch camera frame
-
-
 sensor_msgs::LaserScan LaserScan_;        //Return LaserScans of laser mounted on Fetch
+
 //Obstacle detection
 bool Obstacle_Detected = false;       //Track the state of sensing obstacles
 bool Obstacle_Dodged = false;
@@ -98,7 +97,7 @@ void ScannerCallback (const sensor_msgs::LaserScan& msg)
 
 double LinearPID(double CurrentDist, double TargetDist)
 {
-  double KP = -2.5;
+  double KP = -2.2;
 //  double KI = 0;
   double KD = 1.4;
 
@@ -116,9 +115,9 @@ double LinearPID(double CurrentDist, double TargetDist)
 
 double AngularPID(double CurrentAng, double TargetAng)
 {
-  double KP = 0.1;
+  double KP = 0.077;
 //  double KI = 0;
-  double KD = 0.05;
+  double KD = 0.125;
 
   double error = TargetAng - CurrentAng;
 
@@ -280,48 +279,48 @@ int main(int argc, char **argv)
             double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
 
             // if obstacle is detected and it hasnt been dodged, start dodging
-//            if (Obstacle_Detected == true && Obstacle_Dodged == false)
-//            {
+            if (Obstacle_Detected == true && Obstacle_Dodged == false)
+            {
 
-//              ROS_WARN("DODGING OBSTACLE");
+              ROS_WARN("DODGING OBSTACLE");
 
-//              // dodge right
-//                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
-//                {
-//                    ROS_WARN("DODGING RIGHT");
-//                    TurnRight = true;
-//                    TurnLeft = false;
+              // dodge right
+                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
+                {
+                    ROS_WARN("DODGING RIGHT");
+                    TurnRight = true;
+                    TurnLeft = false;
 
-//                  FetchLin = 0.6;
-//                  FetchAng = -0.8;
-////                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
-////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-//                }
+                  FetchLin = 0.6;
+                  FetchAng = -0.8;
+//                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
+//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+                }
 
-//               // dodge left
-//                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
-//                {
-//                    ROS_WARN("DODGING LEFT");
-//                    TurnLeft = true;
-//                    TurnRight = false;
+               // dodge left
+                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
+                {
+                    ROS_WARN("DODGING LEFT");
+                    TurnLeft = true;
+                    TurnRight = false;
 
-//                  FetchLin = 0.6;
-//                  FetchAng = 0.8;
-////                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
-////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-//                }
+                  FetchLin = 0.6;
+                  FetchAng = 0.8;
+//                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
+//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+                }
 
-//                // obstacle dodged set to true
-//                else
-//                {
-//                Obstacle_Dodged = true;
-//                break;
-//                }
-//            }
+                // obstacle dodged set to true
+                else
+                {
+                Obstacle_Dodged = true;
+                break;
+                }
+            }
 
             // when no obstacle is detected, just follow the guider
-//            else if (Obstacle_Detected == false)
-//            {
+            else if (Obstacle_Detected == false)
+            {
               ROS_WARN("NO NEED TO DODGE");
 
               // If theta is within -4 to 4 (min 3 to look nice), then move straight
@@ -354,7 +353,7 @@ int main(int argc, char **argv)
             //        FetchLin = 0.3;
                     FetchLin = LinearPID(DistG2F, 0.3);
                   }
-                  else if (theta < -2 && Switch == 1)
+                  else if (theta < -1.3 && Switch == 1)
                   {
                     ROS_WARN("Fetch Turning LEFT");
             //        FetchAng = 0.5;
@@ -363,7 +362,7 @@ int main(int argc, char **argv)
 
                     //TurnLeft = true;
                   }
-                  else if (theta > 2 && Switch == 1)
+                  else if (theta > 1.3 && Switch == 1)
                   {
                     ROS_WARN("Fetch Turning RIGHT");
             //        FetchAng = -0.5;
@@ -389,7 +388,7 @@ int main(int argc, char **argv)
                   }
               }
 
-//            }
+            }
 
           Fetch.linear.x = FetchLin;
           Fetch.angular.z = FetchAng;
