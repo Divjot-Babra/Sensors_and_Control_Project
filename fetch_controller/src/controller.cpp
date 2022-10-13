@@ -188,7 +188,7 @@ int main(int argc, char **argv)
 
   // Subscriber3 - fetch odmo, to know poses of fetch in world, will need it for pure pursuit(PID shouldn't need this)
   // Subscriber4 - fetch laser scan, for obstacle avoidance
-  ros::Subscriber Scanner_ = nh.subscribe("/base_scan", 1000, ScannerCallback);
+//  ros::Subscriber Scanner_ = nh.subscribe("/base_scan", 1000, ScannerCallback);
 
   //any way to subscribe to odom?
   //ros::Subscriber Odom_ = nh.subscribe("/odom", )
@@ -217,52 +217,52 @@ int main(int argc, char **argv)
             // No obstacle and can't see the QR Code
             ROS_WARN("Where is the QR Code?");
 
-            // Need to search for the QR Code
+//            // Need to search for the QR Code
 
-            if (TurnLeft == true)
-            {
-                ROS_WARN("SEARCHING RIGHT");
-                FetchAng = -0.3;
-                FetchLin = 0;
+//            if (TurnLeft == true)
+//            {
+//                ROS_WARN("SEARCHING RIGHT");
+//                FetchAng = -0.3;
+//                FetchLin = 0;
 
-            }
+//            }
 
-            else if (TurnRight == true)
-            {
+//            else if (TurnRight == true)
+//            {
 
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.3;
+//              FetchLin = 0;
+//            }
 
-            else
-            {
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//            else
+//            {
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.3;
+//              FetchLin = 0;
+//            }
 
-          }
-          else if ((Tracker_Status_ == 0 || Tracker_Status_ == 1) && Obstacle_Detected == true)
-          {
-            ROS_WARN("QR code cannot be read");
-            //Implement wallfollow after collision detection?
-            //WallFollow();
+//          }
+//          else if ((Tracker_Status_ == 0 || Tracker_Status_ == 1) && Obstacle_Detected == true)
+//          {
+//            ROS_WARN("QR code cannot be read");
+//            //Implement wallfollow after collision detection?
+//            //WallFollow();
 
-            if (TurnLeft == true)
-            {
-                ROS_WARN("SEARCHING RIGHT");
-                FetchAng = -0.3;
-                FetchLin = 0;
+//            if (TurnLeft == true)
+//            {
+//                ROS_WARN("SEARCHING RIGHT");
+//                FetchAng = -0.3;
+//                FetchLin = 0;
 
-            }
-            else if (TurnRight == true)
-            {
+//            }
+//            else if (TurnRight == true)
+//            {
 
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.3;
+//              FetchLin = 0;
+//            }
 
           }
 
@@ -322,7 +322,7 @@ int main(int argc, char **argv)
             // when no obstacle is detected, just follow the guider
 //            else if (Obstacle_Detected == false)
 //            {
-              ROS_WARN("NO NEED TO DODGE");
+//              ROS_WARN("NO NEED TO DODGE");
 
               // If theta is within -4 to 4 (min 3 to look nice), then move straight
               // If 0 < theta < 4, guider turning left, Fetch need to rotate CCW
@@ -331,8 +331,8 @@ int main(int argc, char **argv)
               // lin and ang should be around 0.1-0.4m/s -> do 0.2
               // Always maintain 0.8m (in Gazebo) between Fetch and marker pattern
 
-              TurnLeft = false;
-              TurnRight = false;
+//              TurnLeft = false;
+//              TurnRight = false;
 
                   int Switch = 0;
                   if (DistG2F >= 0.3)                         // Too far from marker pattern - move STRAIGHT
