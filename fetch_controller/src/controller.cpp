@@ -218,28 +218,30 @@ int main(int argc, char **argv)
 
             // Need to search for the QR Code
 
-            if (TurnLeft == true)
-            {
-                ROS_WARN("SEARCHING RIGHT");
-                FetchAng = -0.3;
-                FetchLin = 0;
+            //COMMENTED OUT IRL
 
-            }
+//            if (TurnLeft == true)
+//            {
+//                ROS_WARN("SEARCHING RIGHT");
+//                FetchAng = -0.25;
+//                FetchLin = 0;
 
-            else if (TurnRight == true)
-            {
+//            }
 
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//            else if (TurnRight == true)
+//            {
 
-            else
-            {
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.25;
+//              FetchLin = 0;
+//            }
+
+//            else
+//            {
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.25;
+//              FetchLin = 0;
+//            }
 
           }
           else if ((Tracker_Status_ == 0 || Tracker_Status_ == 1) && Obstacle_Detected == true)
@@ -248,20 +250,32 @@ int main(int argc, char **argv)
             //Implement wallfollow after collision detection?
             //WallFollow();
 
-            if (TurnLeft == true)
-            {
-                ROS_WARN("SEARCHING RIGHT");
-                FetchAng = -0.3;
-                FetchLin = 0;
+            //COMMENTED OUT IRL
 
-            }
-            else if (TurnRight == true)
-            {
 
-              ROS_WARN("SEARCHING LEFT");
-              FetchAng = 0.3;
-              FetchLin = 0;
-            }
+//            if (TurnLeft == true)
+//            {
+//                ROS_WARN("SEARCHING RIGHT");
+//                FetchAng = -0.25;
+//                FetchLin = 0;
+
+//            }
+
+//            else if (TurnRight == true)
+//            {
+
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.25;
+//              FetchLin = 0;
+//            }
+
+//            else
+//            {
+//              ROS_WARN("SEARCHING LEFT");
+//              FetchAng = 0.25;
+//              FetchLin = 0;
+//            }
+
 
           }
 
@@ -278,49 +292,52 @@ int main(int argc, char **argv)
             // To obtain perpendicular distance between the Fetch's camera and guider
             double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
 
-            // if obstacle is detected and it hasnt been dodged, start dodging
-            if (Obstacle_Detected == true && Obstacle_Dodged == false)
-            {
+            //COMMENTED OUT IRL
 
-              ROS_WARN("DODGING OBSTACLE");
 
-              // dodge right
-                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
-                {
-                    ROS_WARN("DODGING RIGHT");
-                    TurnRight = true;
-                    TurnLeft = false;
+//            // if obstacle is detected and it hasnt been dodged, start dodging
+//            if (Obstacle_Detected == true && Obstacle_Dodged == false)
+//            {
 
-                  FetchLin = 0.6;
-                  FetchAng = -0.8;
-//                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
-//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-                }
+//              ROS_WARN("DODGING OBSTACLE");
 
-               // dodge left
-                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
-                {
-                    ROS_WARN("DODGING LEFT");
-                    TurnLeft = true;
-                    TurnRight = false;
+//              // dodge right
+//                if(Obstacle_Angle > OBSTACLE_ANGLE_MIN && Obstacle_Angle <= 110)
+//                {
+//                    ROS_WARN("DODGING RIGHT");
+//                    TurnRight = true;
+//                    TurnLeft = false;
 
-                  FetchLin = 0.6;
-                  FetchAng = 0.8;
-//                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
-//                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
-                }
+//                  FetchLin = 0.6;
+//                  FetchAng = -0.8;
+////                  FetchAng = AngularPID(Obstacle_Angle, 0.2);
+////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+//                }
 
-                // obstacle dodged set to true
-                else
-                {
-                Obstacle_Dodged = true;
-                break;
-                }
-              }
+//               // dodge left
+//                else if (Obstacle_Angle > 110 && Obstacle_Angle <= OBSTACLE_ANGLE_MAX)
+//                {
+//                    ROS_WARN("DODGING LEFT");
+//                    TurnLeft = true;
+//                    TurnRight = false;
 
-            // when no obstacle is detected, just follow the guider
-            else if (Obstacle_Detected == false)
-            {
+//                  FetchLin = 0.6;
+//                  FetchAng = 0.8;
+////                  FetchAng = -AngularPID(Obstacle_Angle, 0.2);
+////                  FetchLin = LinearPID(Obstacle_Distance, 0.05);
+//                }
+
+//                // obstacle dodged set to true
+//                else
+//                {
+//                Obstacle_Dodged = true;
+//                break;
+//                }
+//              }
+
+//            // when no obstacle is detected, just follow the guider
+//            else if (Obstacle_Detected == false)
+//            {
               ROS_WARN("NO NEED TO DODGE");
 
               // If theta is within -4 to 4 (min 3 to look nice), then move straight
@@ -386,9 +403,9 @@ int main(int argc, char **argv)
                     FetchLin = 0;
                     FetchAng = 0;
                   }
-              }
+//              }
 
-            }
+//            }
 
           Fetch.linear.x = FetchLin;
           Fetch.angular.z = FetchAng;
