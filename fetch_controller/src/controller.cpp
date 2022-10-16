@@ -33,13 +33,16 @@
 #define OBSTACLE_ANGLE_MIN 30
 #define OBSTACLE_ANGLE_MAX 190
 
-//struct {
-//    double Linear;
-//    double Angle;
-//    double Perpendicular;
-//    double Rotate;
-//    double Forward;
-//}   OBS;
+/* The following code controls the Fetch to follow a guider mounted with
+ * a QR code.
+ *
+ * Obstacle detection was commented out for faster demonstration.
+ * To activate obstacle detection, uncomment the following lines:
+ * 198
+ * 278 - 320
+ * 386
+ *
+*/
 
 double last_error_Lin = 0;
 double last_error_Ang = 0;
@@ -55,24 +58,12 @@ bool Obstacle_Dodged = false;
 bool TurnLeft = false;
 bool TurnRight = false;
 
-//Wall follow
-bool Wall_Follow = false;
-
 double Obstacle_Distance = 0;       //Track the distance of closest obstacle
 double Obstacle_Angle = 0;          //Track the angle of the closest obstacle
 
 
-
 // States of the Fetch
 int State = 0;
-
-//enum State
-//{
-//    Finding_Guider,         //Finding Guider
-//    Following_Guider,       //Following Guider
-//    Avoiding_Obstacle      //Avoiding Obstace
-//};
-
 
 
 // Callbacks:
@@ -130,10 +121,7 @@ double AngularPID(double CurrentAng, double TargetAng)
   return Angvel;
 }
 
-
-
-//"OTHER" Code
-//Second attempt at obstacle detection
+// Obstacle Detection:
 
 void DetectObstacle()
 {
@@ -179,7 +167,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "fetch_controller");
   ros::NodeHandle nh;
 
-  // Subscriber1 - visp object pose, returns pose of marker pattern
+  // Subscriber1 - visp object pose, returns pose of marker patterngg
   ros::Subscriber GuiderPosition_ = nh.subscribe("/visp_auto_tracker/object_position", 100, GuiderCallback);
 
   // Subscriber2 - visp status, returns range status of marker pattern
@@ -208,7 +196,7 @@ int main(int argc, char **argv)
           ROS_INFO_STREAM("Status of VISP: " << Tracker_Status_);
 
           ROS_WARN("CHECKING FOR OBSTABLES!");
-          DetectObstacle();
+          // DetectObstacle();
 
           // 0 means the camera is in detecting mode, 1 means it is in tracking mode
           if((Tracker_Status_ == 0 || Tracker_Status_ == 1) && Obstacle_Detected == false)
@@ -218,30 +206,28 @@ int main(int argc, char **argv)
 
             // Need to search for the QR Code
 
-            //COMMENTED OUT IRL
+            if (TurnLeft == true)
+            {
+                ROS_WARN("SEARCHING RIGHT");
+                FetchAng = -0.25;
+                FetchLin = 0;
 
-//            if (TurnLeft == true)
-//            {
-//                ROS_WARN("SEARCHING RIGHT");
-//                FetchAng = -0.25;
-//                FetchLin = 0;
+            }
 
-//            }
+            else if (TurnRight == true)
+            {
 
-//            else if (TurnRight == true)
-//            {
+              ROS_WARN("SEARCHING LEFT");
+              FetchAng = 0.25;
+              FetchLin = 0;
+            }
 
-//              ROS_WARN("SEARCHING LEFT");
-//              FetchAng = 0.25;
-//              FetchLin = 0;
-//            }
-
-//            else
-//            {
-//              ROS_WARN("SEARCHING LEFT");
-//              FetchAng = 0.25;
-//              FetchLin = 0;
-//            }
+            else
+            {
+              ROS_WARN("SEARCHING LEFT");
+              FetchAng = 0.25;
+              FetchLin = 0;
+            }
 
           }
           else if ((Tracker_Status_ == 0 || Tracker_Status_ == 1) && Obstacle_Detected == true)
@@ -250,31 +236,28 @@ int main(int argc, char **argv)
             //Implement wallfollow after collision detection?
             //WallFollow();
 
-            //COMMENTED OUT IRL
+            if (TurnLeft == true)
+            {
+                ROS_WARN("SEARCHING RIGHT");
+                FetchAng = -0.25;
+                FetchLin = 0;
 
+            }
 
-//            if (TurnLeft == true)
-//            {
-//                ROS_WARN("SEARCHING RIGHT");
-//                FetchAng = -0.25;
-//                FetchLin = 0;
+            else if (TurnRight == true)
+            {
 
-//            }
+              ROS_WARN("SEARCHING LEFT");
+              FetchAng = 0.25;
+              FetchLin = 0;
+            }
 
-//            else if (TurnRight == true)
-//            {
-
-//              ROS_WARN("SEARCHING LEFT");
-//              FetchAng = 0.25;
-//              FetchLin = 0;
-//            }
-
-//            else
-//            {
-//              ROS_WARN("SEARCHING LEFT");
-//              FetchAng = 0.25;
-//              FetchLin = 0;
-//            }
+            else
+            {
+              ROS_WARN("SEARCHING LEFT");
+              FetchAng = 0.25;
+              FetchLin = 0;
+            }
 
 
           }
@@ -291,9 +274,6 @@ int main(int argc, char **argv)
 
             // To obtain perpendicular distance between the Fetch's camera and guider
             double DistG2F = std::sqrt(std::pow(GuiderPose_.pose.position.x,2)+std::pow(GuiderPose_.pose.position.z,2));
-
-            //COMMENTED OUT IRL
-
 
 //            // if obstacle is detected and it hasnt been dodged, start dodging
 //            if (Obstacle_Detected == true && Obstacle_Dodged == false)
@@ -405,7 +385,7 @@ int main(int argc, char **argv)
                   }
 //              }
 
-//            }
+            }
 
           Fetch.linear.x = FetchLin;
           Fetch.angular.z = FetchAng;
