@@ -4,7 +4,15 @@
  *
  *  This class contains the path following algorithm for controlling the Fetch robot to follow a marker pattern.
  *
+ * Obstacle detection was commented out for faster demonstration.
+ * To activate obstacle detection, uncomment the following lines:
+ * 198
+ * 278 - 320
+ * 386
+ *
+ *
  *  @note This class will be split into a header and implementation file later.
+ *
  *
  *  @author Zhifeng Huang, Lee Madden & Divjot Babra
  *  @maintainer Zhifeng Huang, Lee Madden & Divjot Babra
@@ -33,16 +41,6 @@
 #define OBSTACLE_ANGLE_MIN 30
 #define OBSTACLE_ANGLE_MAX 190
 
-/* The following code controls the Fetch to follow a guider mounted with
- * a QR code.
- *
- * Obstacle detection was commented out for faster demonstration.
- * To activate obstacle detection, uncomment the following lines:
- * 198
- * 278 - 320
- * 386
- *
-*/
 
 double last_error_Lin = 0;
 double last_error_Ang = 0;
