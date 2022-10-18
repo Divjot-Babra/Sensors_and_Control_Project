@@ -90,12 +90,15 @@ cp QrCodeCube.dae ~/catkin_ws/src/turtlebot3/turtlebot3_description/meshes/marke
 cp QrCodeCube.png ~/catkin_ws/src/turtlebot3/turtlebot3_description/meshes/markers/
 cp tracklive_usb.launch ~/catkin_ws/src/vision_visp/visp_auto_tracker/launch/
 cp turtlebot3_waffle.urdf.xacro ~/catkin_ws/src/turtlebot3/turtlebot3_description/urdf/
+cd ..
+cp -R fetch_controller/ ~/catkin_ws/src/
 ```
 
-Build the catkin workspace:
+Build and source the catkin workspace:
 ```
 cd ~/catkin_ws/
 catkin_make
+source devel/setup.bash
 ```
 
 To start the simulator, open a new terminal and type: 
